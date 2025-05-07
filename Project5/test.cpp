@@ -4,27 +4,30 @@
 using namespace testing;
 
 class BookingItem : public Test {
+protected:
+	void SetUp() override {
+		NOT_ON_THE_HOUR = getTime(2021, 3, 26, 9, 5);
+		ON_THE_HOUR = getTime(2021, 3, 26, 9, 0);
+	}
 public:
 	tm getTime(int year, int mon, int day, int hour, int min) {
 		tm result = { 0,min,hour,day,mon - 1,year - 1900,0,0,-1 };
 		mktime(&result);
 		return result;
 	}
+	tm NOT_ON_THE_HOUR;
+	tm ON_THE_HOUR;
+	Customer CUSTOMER{ "fake name", "010-1234-5678" };
+
+	const int UNDER_CAPACITY = 1;
+	const int CAPACITY_PER_HOUR = 3;
+
+	BookingScheduler bookingScheduler{ CAPACITY_PER_HOUR };
+
 };
 
 TEST_F(BookingItem, 예약은정시에만가능하다정시가아닌경우예약불가) {
-	tm notOnTheHour = { 0 };
-	notOnTheHour.tm_year = 2021 - 1900;
-	notOnTheHour.tm_mon = 03 - 1;
-	notOnTheHour.tm_mday = 26;
-	notOnTheHour.tm_hour = 9;
-	notOnTheHour.tm_min = 5;
-	notOnTheHour.tm_isdst = -1;
-	mktime(&notOnTheHour);
-
-	Customer customer{ "fake name", "010-1234-5678" };
-	Schedule* schedule = new Schedule{ notOnTheHour, 1, customer };
-	BookingScheduler bookingScheduler{ 3 };
+	Schedule* schedule = new Schedule{ NOT_ON_THE_HOUR, UNDER_CAPACITY, CUSTOMER };
 
 	EXPECT_THROW({
 		bookingScheduler.addSchedule(schedule);
@@ -32,18 +35,8 @@ TEST_F(BookingItem, 예약은정시에만가능하다정시가아닌경우예약불가) {
 }
 
 TEST_F(BookingItem, 예약은정시에만가능하다정시인경우예약가능) {
-	tm onTheHour = { 0 };
-	onTheHour.tm_year = 2021 - 1900;
-	onTheHour.tm_mon = 03 - 1;
-	onTheHour.tm_mday = 26;
-	onTheHour.tm_hour = 9;
-	onTheHour.tm_min = 0;
-	onTheHour.tm_isdst = -1;
-	mktime(&onTheHour);
+	Schedule* schedule = new Schedule{ ON_THE_HOUR, UNDER_CAPACITY, CUSTOMER };
 
-	Customer customer{ "fake name", "010-1234-5678" };
-	Schedule* schedule = new Schedule{ onTheHour, 1, customer };
-	BookingScheduler bookingScheduler{ 3 };
 	bookingScheduler.addSchedule(schedule);
 	EXPECT_EQ(true, bookingScheduler.hasSchedule(schedule));
 }
