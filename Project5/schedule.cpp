@@ -9,7 +9,7 @@ public:
 	Schedule(tm dateTime, int numberOfPeople, Customer customer) :
 		dateTime{ dateTime },
 		numberOfPeople{ numberOfPeople },
-		customer{ customer } {
+		CUSTOMER{ customer } {
 	}
 
 	tm getDateTime() {
@@ -21,11 +21,11 @@ public:
 	}
 
 	Customer getCustomer() {
-		return customer;
+		return CUSTOMER;
 	}
 
 private:
 	tm dateTime;
 	int numberOfPeople;
-	Customer customer;
+	Customer CUSTOMER;
 };
