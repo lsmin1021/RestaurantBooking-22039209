@@ -1,4 +1,4 @@
-#include "gmock/gmock.h"
+ï»¿#include "gmock/gmock.h"
 #include "booking_scheduler.cpp"
 #include "testable_sms_sender.cpp"
 #include "testable_mail_sender.cpp"
@@ -44,7 +44,7 @@ public:
 	TestableMailSender testableMailSender;
 };
 
-TEST_F(BookingItem, ¿¹¾àÀºÁ¤½Ã¿¡¸¸°¡´ÉÇÏ´ÙÁ¤½Ã°¡¾Æ´Ñ°æ¿ì¿¹¾àºÒ°¡) {
+TEST_F(BookingItem, ì˜ˆì•½ì€ì •ì‹œì—ë§Œê°€ëŠ¥í•˜ë‹¤ì •ì‹œê°€ì•„ë‹Œê²½ìš°ì˜ˆì•½ë¶ˆê°€) {
 	Schedule* schedule = new Schedule{ NOT_ON_THE_HOUR, UNDER_CAPACITY, CUSTOMER };
 
 	EXPECT_THROW({
@@ -52,14 +52,14 @@ TEST_F(BookingItem, ¿¹¾àÀºÁ¤½Ã¿¡¸¸°¡´ÉÇÏ´ÙÁ¤½Ã°¡¾Æ´Ñ°æ¿ì¿¹¾àºÒ°¡) {
 		}, std::runtime_error);
 }
 
-TEST_F(BookingItem, ¿¹¾àÀºÁ¤½Ã¿¡¸¸°¡´ÉÇÏ´ÙÁ¤½ÃÀÎ°æ¿ì¿¹¾à°¡´É) {
+TEST_F(BookingItem, ì˜ˆì•½ì€ì •ì‹œì—ë§Œê°€ëŠ¥í•˜ë‹¤ì •ì‹œì¸ê²½ìš°ì˜ˆì•½ê°€ëŠ¥) {
 	Schedule* schedule = new Schedule{ ON_THE_HOUR, UNDER_CAPACITY, CUSTOMER };
 
 	bookingScheduler.addSchedule(schedule);
 	EXPECT_EQ(true, bookingScheduler.hasSchedule(schedule));
 }
 
-TEST_F(BookingItem, ½Ã°£´ëº°ÀÎ¿øÁ¦ÇÑÀÌÀÖ´Ù°°Àº½Ã°£´ë¿¡CapacityÃÊ°úÇÒ°æ¿ì¿¹¿Ü¹ß»ı) {
+TEST_F(BookingItem, ì‹œê°„ëŒ€ë³„ì¸ì›ì œí•œì´ìˆë‹¤ê°™ì€ì‹œê°„ëŒ€ì—Capacityì´ˆê³¼í• ê²½ìš°ì˜ˆì™¸ë°œìƒ) {
 	Schedule* schedule = new Schedule{ ON_THE_HOUR, CAPACITY_PER_HOUR, CUSTOMER };
 	bookingScheduler.addSchedule(schedule);
 
@@ -74,7 +74,7 @@ TEST_F(BookingItem, ½Ã°£´ëº°ÀÎ¿øÁ¦ÇÑÀÌÀÖ´Ù°°Àº½Ã°£´ë¿¡CapacityÃÊ°úÇÒ°æ¿ì¿¹¿Ü¹ß»ı
 	}
 }
 
-TEST_F(BookingItem, ½Ã°£´ëº°ÀÎ¿øÁ¦ÇÑÀÌÀÖ´Ù°°Àº½Ã°£´ë°¡´Ù¸£¸éCapacityÂ÷ÀÖ¾îµµ½ºÄÉÁìÃß°¡¼º°ø) {
+TEST_F(BookingItem, ì‹œê°„ëŒ€ë³„ì¸ì›ì œí•œì´ìˆë‹¤ê°™ì€ì‹œê°„ëŒ€ê°€ë‹¤ë¥´ë©´Capacityì°¨ìˆì–´ë„ìŠ¤ì¼€ì¥´ì¶”ê°€ì„±ê³µ) {
 	Schedule* schedule = new Schedule{ ON_THE_HOUR, CAPACITY_PER_HOUR, CUSTOMER };
 	bookingScheduler.addSchedule(schedule);
 
@@ -85,7 +85,7 @@ TEST_F(BookingItem, ½Ã°£´ëº°ÀÎ¿øÁ¦ÇÑÀÌÀÖ´Ù°°Àº½Ã°£´ë°¡´Ù¸£¸éCapacityÂ÷ÀÖ¾îµµ½ºÄÉ
 	EXPECT_EQ(true, bookingScheduler.hasSchedule(schedule));
 }
 
-TEST_F(BookingItem, ¿¹¾à¿Ï·á½ÃSMS´Â¹«Á¶°Ç¹ß¼Û) {
+TEST_F(BookingItem, ì˜ˆì•½ì™„ë£Œì‹œSMSëŠ”ë¬´ì¡°ê±´ë°œì†¡) {
 	Schedule* schedule = new Schedule(ON_THE_HOUR, CAPACITY_PER_HOUR, CUSTOMER);
 	
 	bookingScheduler.addSchedule(schedule);
@@ -93,7 +93,7 @@ TEST_F(BookingItem, ¿¹¾à¿Ï·á½ÃSMS´Â¹«Á¶°Ç¹ß¼Û) {
 	EXPECT_EQ(true, testableSmsSender.isSendMethodIsCalled());
 }
 
-TEST_F(BookingItem, ÀÌ¸ŞÀÏÀÌ¾ø´Â°æ¿ì¿¡´ÂÀÌ¸ŞÀÏ¹Ì¹ß¼Û) {
+TEST_F(BookingItem, ì´ë©”ì¼ì´ì—†ëŠ”ê²½ìš°ì—ëŠ”ì´ë©”ì¼ë¯¸ë°œì†¡) {
 	Schedule* schedule = new Schedule{ ON_THE_HOUR, UNDER_CAPACITY, CUSTOMER };
 
 	bookingScheduler.addSchedule(schedule);
@@ -101,7 +101,7 @@ TEST_F(BookingItem, ÀÌ¸ŞÀÏÀÌ¾ø´Â°æ¿ì¿¡´ÂÀÌ¸ŞÀÏ¹Ì¹ß¼Û) {
 	EXPECT_EQ(0, testableMailSender.getCountSendMailMethodIsCalled());
 }
 
-TEST_F(BookingItem, ÀÌ¸ŞÀÏÀÌÀÖ´Â°æ¿ì¿¡´ÂÀÌ¸ŞÀÏ¹ß¼Û) {
+TEST_F(BookingItem, ì´ë©”ì¼ì´ìˆëŠ”ê²½ìš°ì—ëŠ”ì´ë©”ì¼ë°œì†¡) {
 	Schedule* schedule = new Schedule{ ON_THE_HOUR, UNDER_CAPACITY, CUSTOMER_WITH_MAIL };
 	
 	bookingScheduler.addSchedule(schedule);
@@ -109,7 +109,7 @@ TEST_F(BookingItem, ÀÌ¸ŞÀÏÀÌÀÖ´Â°æ¿ì¿¡´ÂÀÌ¸ŞÀÏ¹ß¼Û) {
 	EXPECT_EQ(1, testableMailSender.getCountSendMailMethodIsCalled());
 }
 
-TEST_F(BookingItem, ÇöÀç³¯Â¥°¡ÀÏ¿äÀÏÀÎ°æ¿ì¿¹¾àºÒ°¡¿¹¿ÜÃ³¸®) {
+TEST_F(BookingItem, í˜„ì¬ë‚ ì§œê°€ì¼ìš”ì¼ì¸ê²½ìš°ì˜ˆì•½ë¶ˆê°€ì˜ˆì™¸ì²˜ë¦¬) {
 	BookingScheduler* bookingScheduler = new TestableBookingScheduler{ CAPACITY_PER_HOUR, SUNDAY};
 	try {
 		Schedule* schedule = new Schedule{ ON_THE_HOUR, UNDER_CAPACITY, CUSTOMER_WITH_MAIL };
@@ -121,7 +121,7 @@ TEST_F(BookingItem, ÇöÀç³¯Â¥°¡ÀÏ¿äÀÏÀÎ°æ¿ì¿¹¾àºÒ°¡¿¹¿ÜÃ³¸®) {
 	}
 }
 
-TEST_F(BookingItem, ÇöÀç³¯Â¥°¡ÀÏ¿äÀÏÀÌ¾Æ´Ñ°æ¿ì¿¹¾à°¡´É) {
+TEST_F(BookingItem, í˜„ì¬ë‚ ì§œê°€ì¼ìš”ì¼ì´ì•„ë‹Œê²½ìš°ì˜ˆì•½ê°€ëŠ¥) {
 	BookingScheduler* bookingScheduler = new TestableBookingScheduler{ CAPACITY_PER_HOUR, MONDAY };
 
 	Schedule* schedule = new Schedule{ ON_THE_HOUR, UNDER_CAPACITY, CUSTOMER_WITH_MAIL };

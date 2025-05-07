@@ -1,10 +1,10 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include "sms_sender.cpp"
 
 class TestableSmsSender : public SmsSender {
 public:
 	virtual void send(Schedule* schedule) override {
-		std::cout << "Å×½ºÆ®¿ë SmsSender classÀÇ send ¸Þ¼­µå ½ÇÇàµÊ \n";
+		std::cout << "í…ŒìŠ¤íŠ¸ìš© SmsSender classì˜ send ë©”ì„œë“œ ì‹¤í–‰ë¨ \n";
 		sendMethodIsCalled = true;
 	}
 	bool isSendMethodIsCalled() {
